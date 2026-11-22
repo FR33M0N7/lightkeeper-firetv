@@ -35,9 +35,10 @@ Tested on a Fire TV Stick 4K Max (2nd gen), Fire OS 8.1.8.5.
 1. **Turn on developer options.** Settings → My Fire TV → About → click the device name seven
    times. Then My Fire TV → Developer options → turn on **ADB debugging**, and allow
    **Install unknown apps** for Downloader.
-2. **Install the APK.** In the [Downloader](https://www.aftvnews.com/downloader/) app, enter
-   `https://github.com/FR33M0N7/lightkeeper-firetv/releases/latest/download/lightkeeper-firetv.apk`
-   and install it. Or from the computer:
+2. **Install the APK.** In the [Downloader](https://www.aftvnews.com/downloader/) app, enter the
+   code **`7172192`** and install it. The code always loads the latest release
+   (`https://github.com/FR33M0N7/lightkeeper-firetv/releases/latest/download/lightkeeper-firetv.apk`).
+   Or from the computer:
    `adb connect <fire-tv-ip>:5555 && adb install lightkeeper-firetv.apk`
 3. **Let it take the Home button.** From the computer (accept the "Allow USB debugging?" prompt
    on the TV, ticking *Always allow*):
@@ -68,7 +69,7 @@ Fire TV, so please report how it goes.
 1. **Install the APK**: turn on Developer options (Settings → Device Preferences → About → click
    *Build* seven times), turn on **USB debugging** (and Network debugging where offered), then
    `adb connect <tv-ip>:5555 && adb install lightkeeper-firetv.apk`; or use Downloader or a file
-   manager with *Install unknown apps* allowed.
+   manager with *Install unknown apps* allowed (Downloader code **`7172192`**).
 2. **Make it the Home app**, the first of these that works:
    - **Android TV** (the older blue/grey Home): press Home and pick Lightkeeper when asked, or
      Settings → Apps → Default apps → Home app → Lightkeeper. With adb:
