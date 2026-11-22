@@ -1,0 +1,22 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'local.lightkeeper.firetv'
+    compileSdk 34
+    defaultConfig {
+        applicationId 'local.lightkeeper.firetv'
+        minSdk 25
+        targetSdk 30
+        versionCode 1
+        versionName '1.1.1-firetv.1'
+    }
+    buildTypes { release { minifyEnabled false; signingConfig signingConfigs.debug } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_1_8; targetCompatibility JavaVersion.VERSION_1_8 }
+    lint { abortOnError false; checkReleaseBuilds false }
+}
+
+// The web app comes from upstream Lightkeeper (MIT): ./sync-assets.sh puts it in the assets.
+preBuild.doFirst {
+    if (!file('src/main/assets/app/index.html').exists()) {
+        throw new GradleException('Lightkeeper\'s web app is missing: run ./sync-assets.sh first')
+    }
+}
