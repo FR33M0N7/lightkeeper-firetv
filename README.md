@@ -1,6 +1,6 @@
 # Lightkeeper for Fire TV
 
-A calm, ad-free Home screen for Amazon Fire TV: a clock, the weather, a row of your apps and a
+A calm, ad-free Home screen for Amazon Fire TV (Fire TV Launcher): a clock, the weather, a row of your apps and a
 painting of the sea. No banners, no autoplaying trailers, no sponsored rows.
 
 ![Lightkeeper on a Fire TV Stick](docs/home.jpg)
