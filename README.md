@@ -19,7 +19,8 @@ affiliated with Lightkeeper, LG or Amazon.
   with an optional PIN.
 - **Home Assistant**: values beside the clock, and tiles that switch a light or run a scene.
 - **The Home button opens Lightkeeper**: Fire OS lets no app replace its launcher, so Lightkeeper
-  watches for Fire TV's Home and steps in front of it (Amazon's Home shows for about a second first).
+  watches for Fire TV's Home and steps in front of it, before Amazon's Home has drawn (with the
+  accessibility service of step 3 on; without it, Amazon's Home shows for about a second first).
 - **Down on the tile row** opens [Projectivy Launcher](https://github.com/spocky/miproja1) if it is
   installed, for every app you have; otherwise Fire TV's own Home.
 
@@ -30,7 +31,7 @@ list or close others), GlassHouse remote keys, TV inputs, the screen saver pause
 
 You need a Fire TV with Fire OS 7 or 8, and once, a computer with
 [adb](https://developer.android.com/tools/releases/platform-tools) on the same network.
-Tested on a Fire TV Stick 4K Max (2nd gen), Fire OS 8.1.8.5.
+Tested on a Fire TV Stick 4K Max (2nd gen), Fire OS 8.1.8.5 and 8.1.8.6.
 
 1. **Turn on developer options.** Settings → My Fire TV → About → click the device name seven
    times. Then My Fire TV → Developer options → turn on **ADB debugging**, and allow
@@ -47,10 +48,21 @@ Tested on a Fire TV Stick 4K Max (2nd gen), Fire OS 8.1.8.5.
    adb connect <fire-tv-ip>:5555
    adb shell pm grant local.lightkeeper.firetv android.permission.READ_LOGS
    adb shell appops set local.lightkeeper.firetv SYSTEM_ALERT_WINDOW allow
+   adb shell settings put secure enabled_accessibility_services local.lightkeeper.firetv/.HomeKeyService
+   adb shell settings put secure accessibility_enabled 1
    ```
 
    The first lets Lightkeeper see Fire TV's Home being opened; the second lets it open itself
-   from the background. Both stay until the app is uninstalled. Keep ADB debugging on.
+   from the background. The last two turn on Lightkeeper's accessibility service, which reads
+   nothing and does nothing itself, but with it on, Fire TV's Home is slow enough to draw that
+   Lightkeeper is in front first, so Amazon's Home doesn't flash. The `enabled_accessibility_services` line replaces any
+   other accessibility services you have on: check with
+   `adb shell settings get secure enabled_accessibility_services` and join them with `:`.
+   All of these stay until the app is uninstalled, and through updates and restarts. Keep ADB
+   debugging on. To turn the service off: `adb shell settings delete secure enabled_accessibility_services`.
+
+   **Updating from 1.1.1-firetv.1:** install the new APK over it as in step 2 (your settings and
+   the first two permissions stay), then run the last two `settings put` lines once.
 4. **Open Lightkeeper** from Your Apps once, then press Home. Choose your tiles with the gear,
    or from your phone at `http://<fire-tv-ip>:8090`.
 
